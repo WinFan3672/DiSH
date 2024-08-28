@@ -5,7 +5,12 @@ namespace Dish.Util
 {
 	public static partial class Command
 	{
-		public static string[] Builtins = new[] { "help" };
+		public static string[] BuiltinCommands = new[] { 
+			"help",
+				"clear",
+				"cls",
+		};
+
 		public static int ExecuteCommand(string Command)
 		{
 			if (Command == "")
@@ -18,31 +23,27 @@ namespace Dish.Util
 				return 1;
 			}
 
-			if (Builtins.Contains(GetCommand(Command)))
+			if (BuiltinCommands.Contains(GetCommand(Command)))
 			{
 				return DishBuiltins.Execute(GetCommand(Command), GetArgs(Command));
 			}
 
-			ProcessStartInfo PSI = new ProcessStartInfo(GetExecutablePath(GetCommand(Command)), FormatArgs(GetArgs(Command))) { RedirectStandardOutput = true, RedirectStandardError=true };
+			string ExecPath;
+			try
+			{
+				ExecPath = GetExecutablePath(GetCommand(Command));
+			}
+			catch (NoCommandException)
+			{
+				Console.WriteLine("dish: Bad command, builtin or file name");
+				return 1;
+			}
+
+			ProcessStartInfo PSI = new ProcessStartInfo(ExecPath, FormatArgs(GetArgs(Command))) { RedirectStandardOutput = false, RedirectStandardError = false };
 			using (Process Proc  = new Process {StartInfo = PSI})
 			{
 				Proc.Start();
-				string Stdout = Proc.StandardOutput.ReadToEnd();
-				string Error = Proc.StandardError.ReadToEnd();
 				Proc.WaitForExit();
-
-				if (Chance.Rand.NextDouble() > 0.2 && Stdout != "")
-				{
-					Console.WriteLine(Stdout);
-				}
-				else
-				{
-					Console.WriteLine("ERROR: Failed to write command output. Sorry, not sorry.");
-				}
-				if (Chance.Rand.NextDouble() > 0.35 && Error != "")
-				{
-					Console.WriteLine(Error);
-				}
 				return Proc.ExitCode;
 			}
 		}

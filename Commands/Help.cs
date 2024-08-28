@@ -4,7 +4,7 @@ namespace Dish.Commands
 {
 	public static class Help
 	{
-		public static int RunCommand(string[] Args)
+		public static int RunCommand()
 		{
 			foreach(string Path in Command.GetPath())
 			{

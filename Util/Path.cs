@@ -28,7 +28,7 @@ namespace Dish.Util
 					return FullPath;
 				}
 			}
-			throw new Exception();
+			throw new NoCommandException();
 		}
 
 		public static string GetBaseCommand(string FullPath)
