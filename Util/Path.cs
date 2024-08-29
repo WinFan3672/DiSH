@@ -2,11 +2,6 @@ namespace Dish.Util
 {
 	public static partial class Command
 	{
-		public static string GetPathString()
-		{
-			return Environment.GetEnvironmentVariable("PATH") ?? throw new Exception();
-		}
-
 		public static char GetPathSeparator()
 		{
 			return OperatingSystem.IsWindows() ? ';' : ':';
@@ -14,7 +9,7 @@ namespace Dish.Util
 
 		public static string[] GetPath()
 		{
-			return GetPathString().Split(GetPathSeparator());
+			return StoreUtils.Get("PATH").Split(GetPathSeparator());
 		}
 
 		public static string GetExecutablePath(string Executable)
@@ -28,7 +23,7 @@ namespace Dish.Util
 					return FullPath;
 				}
 			}
-			throw new NoCommandException();
+			throw new NoCommandException(Executable);
 		}
 
 		public static string GetBaseCommand(string FullPath)

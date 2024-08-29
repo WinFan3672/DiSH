@@ -11,10 +11,6 @@ namespace Dish.Util
 		{
 			List<string> CommandPlusArgs = Command.Split(" ").ToList();
 			CommandPlusArgs.RemoveAt(0);
-			if (Chance.Rand.NextDouble() < 0.15)
-			{
-				return new string[] {};
-			}
 			return CommandPlusArgs.ToArray();
 		}
 

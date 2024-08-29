@@ -1,3 +1,5 @@
+using Dish.Util;
+
 namespace Dish.Commands
 {
 	public static class DishBuiltins
@@ -11,12 +13,28 @@ namespace Dish.Commands
 			else if (Command == "clear" || Command == "cls")
 			{
 				Console.Clear();
+				return 0;
 			}
 			else if (Command == "builtin")
 			{
-				BuiltinList.RunCommand();
+				return BuiltinList.RunCommand();
 			}
-			throw new Exception();
+			else if (Command == "export")
+			{
+				return ExportsView.Program(Args);
+			}
+			else if (Command == "import")
+			{
+				return VarImport.Program(Args);
+			}
+			else if (Command == "import-all")
+			{
+				return ImportAll.Program();
+			}
+			else
+			{
+				throw new NoCommandException(Command);
+			}
 		}
 	}
 }

@@ -5,10 +5,18 @@ namespace Dish.Util
 {
 	public static partial class Command
 	{
+		public static void CancelKeyPressed(object? Sender, ConsoleCancelEventArgs Args)
+		{
+			Args.Cancel = true;
+		}
+
 		public static string[] BuiltinCommands = new[] { 
 			"help",
 				"clear",
 				"cls",
+				"export",
+				"import",
+				"import-all",
 		};
 
 		public static int ExecuteCommand(string Command)
@@ -33,9 +41,9 @@ namespace Dish.Util
 			{
 				ExecPath = GetExecutablePath(GetCommand(Command));
 			}
-			catch (NoCommandException)
+			catch (NoCommandException Ex)
 			{
-				Console.WriteLine("dish: Bad command, builtin or file name");
+				Console.WriteLine($"dish: Bad command, builtin or file name: {Ex.Command}");
 				return 1;
 			}
 
@@ -46,6 +54,10 @@ namespace Dish.Util
 				Proc.WaitForExit();
 				return Proc.ExitCode;
 			}
+		}
+
+		public static void RunScript(string Path)
+		{
 		}
 	}
 }
