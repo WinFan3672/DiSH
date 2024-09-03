@@ -1,4 +1,4 @@
-all: clean win linux
+all: clean win linux osx
 win:
 	dotnet publish --self-contained -r win-x64
 linux:
