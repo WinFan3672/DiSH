@@ -6,7 +6,7 @@ string Cmd;
 int ExitCode;
 while(true)
 {
-	Console.Write($"[dish {Environment.UserName}@{Environment.MachineName} {Directory.GetCurrentDirectory()}] >");
+	Console.Write($"[dish {Environment.UserName}@{Environment.MachineName} {Path.GetFileName(Directory.GetCurrentDirectory())}] >");
 	Cmd = Console.ReadLine() ?? throw new Exception();
 	ExitCode = Command.ExecuteCommand(Cmd);
 	if (ExitCode != 0)
