@@ -20,6 +20,7 @@ namespace Dish.Util
 				"import-all",
 				"quit",
 				"exit",
+				"cd",
 		};
 
 		public static int ExecuteCommand(string Command)

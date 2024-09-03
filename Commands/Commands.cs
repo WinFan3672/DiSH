@@ -35,6 +35,10 @@ namespace Dish.Commands
 			{
 				return ExitCommand.RunCommand();
 			}
+			else if (Command == "cd")
+			{
+				return ChangeDir.Program(Args);
+			}
 			else
 			{
 				throw new NoCommandException(Command);
