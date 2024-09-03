@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Dish.Commands;
+using Dish.Stores;
 
 namespace Dish.Util
 {
@@ -47,7 +48,11 @@ namespace Dish.Util
 				return 1;
 			}
 
-			ProcessStartInfo PSI = new ProcessStartInfo(ExecPath, FormatArgs(GetArgs(Command))) { RedirectStandardOutput = false, RedirectStandardError = false };
+			ProcessStartInfo PSI = new ProcessStartInfo(ExecPath, FormatArgs(GetArgs(Command))) { RedirectStandardOutput = false, RedirectStandardError = false};
+			foreach(KeyValuePair<string, string> KVP in ExportStore.Exports)
+			{
+				PSI.Environment.Add(KVP.Key, KVP.Value);
+			}
 			using (Process Proc  = new Process {StartInfo = PSI})
 			{
 				Proc.Start();
