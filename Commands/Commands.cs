@@ -29,7 +29,7 @@ namespace Dish.Commands
 			}
 			else if (Command == "import-all")
 			{
-				return ImportAll.Program();
+				return ImportAll.Program(Args);
 			}
 			else if (Command == "exit" || Command == "quit")
 			{

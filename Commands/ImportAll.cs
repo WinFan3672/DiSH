@@ -5,11 +5,14 @@ namespace Dish.Commands
 {
 	public static class ImportAll
 	{
-		public static int Program()
+		public static int Program(string[] Args)
 		{
 			foreach(DictionaryEntry DE in Environment.GetEnvironmentVariables())
 			{
-				StoreUtils.Import(DE.Key.ToString() ?? throw new ArgumentNullException());
+				if (!Args.Contains(DE.Key))
+				{
+					StoreUtils.Import(DE.Key.ToString() ?? throw new ArgumentNullException());
+				}
 			}
 			return 0;
 		}
