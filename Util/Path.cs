@@ -30,5 +30,23 @@ namespace Dish.Util
 		{
 			return GetCommand(Path.GetFileName(FullPath));
 		}
+
+		public static string ExpandPath(string BasePath)
+		{
+			if (BasePath == "~")
+			{
+				return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+			}
+			else if (BasePath.StartsWith("~"))
+			{
+				string Home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+				return Path.Combine(Home, BasePath.Substring(2));
+			}
+			else
+			{
+				return BasePath;
+			}
+		}
 	}
 }
