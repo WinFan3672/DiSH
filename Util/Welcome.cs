@@ -5,7 +5,6 @@ namespace Dish.Util
 		public static void Init()
 		{
 			StoreUtils.Import("PATH");
-			Console.WriteLine($"Welcome to dish {AssemblyTools.GetVersion()}!");
 		}
 	}
 }
