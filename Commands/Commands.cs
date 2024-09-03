@@ -31,6 +31,10 @@ namespace Dish.Commands
 			{
 				return ImportAll.Program();
 			}
+			else if (Command == "exit" || Command == "quit")
+			{
+				return ExitCommand.RunCommand();
+			}
 			else
 			{
 				throw new NoCommandException(Command);

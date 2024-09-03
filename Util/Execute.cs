@@ -18,6 +18,8 @@ namespace Dish.Util
 				"export",
 				"import",
 				"import-all",
+				"quit",
+				"exit",
 		};
 
 		public static int ExecuteCommand(string Command)
