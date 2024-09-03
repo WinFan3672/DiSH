@@ -1,4 +1,5 @@
-﻿using Dish.Util;
+﻿using Spectre.Console;
+using Dish.Util;
 
 Console.CancelKeyPress += new ConsoleCancelEventHandler(Command.CancelKeyPressed);
 Welcome.Init();
@@ -6,7 +7,7 @@ string Cmd;
 int ExitCode;
 while(true)
 {
-	Console.Write($"[dish {Environment.UserName}@{Environment.MachineName} {Path.GetFileName(Directory.GetCurrentDirectory())}] >");
+	AnsiConsole.Write(new Markup($"[[[yellow]{Environment.UserName}[/][green]@[/][yellow]{Environment.MachineName}[/] [red]{Path.GetFileName(Directory.GetCurrentDirectory())}[/]]] >"));
 	Cmd = Console.ReadLine() ?? throw new Exception();
 	ExitCode = Command.ExecuteCommand(Cmd);
 	if (ExitCode != 0)
